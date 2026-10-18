@@ -2,6 +2,8 @@ import numpy as np
 
 import generators as ge
 
+rng = np.random.default_rng()
+
 
 def question(n):
     print(f'{n}. ' + ge.QHA[f'q{n}'])
@@ -16,5 +18,5 @@ def answer(n):
 
 
 def pick():
-    n = np.random.randint(1, 100)
+    n = rng.integers(1, 101)
     question(n)

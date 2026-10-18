@@ -7,6 +7,8 @@ This is a collection of exercises that have been collected in the numpy mailing 
 and in the numpy documentation. The goal of this collection is to offer a quick reference for both old
 and new users but also to provide a set of exercises for those who teach.
 
+Answers assume `import numpy as np` and `rng = np.random.default_rng()`.
+
 
 If you find an error or think you've a better way to solve some of them, feel
 free to open an issue at <https://github.com/rougier/numpy-100>.
@@ -35,7 +37,7 @@ File automatically generated. See the documentation to update questions/answers/
 #### 11. Create a 3x3 identity matrix (★☆☆)
 `hint: np.eye`
 #### 12. Create a 3x3x3 array with random values (★☆☆)
-`hint: np.random.random`
+`hint: rng.random`
 #### 13. Create a 10x10 array with random values and find the minimum and maximum values (★☆☆)
 `hint: min, max`
 #### 14. Create a random vector of size 30 and find the mean value (★☆☆)
@@ -161,7 +163,7 @@ np.sqrt(-1) == np.emath.sqrt(-1)
 #### 56. Generate a generic 2D Gaussian-like array (★★☆)
 `hint: np.meshgrid, np.exp`
 #### 57. How to randomly place p elements in a 2D array? (★★☆)
-`hint: np.put, np.random.choice`
+`hint: np.put, rng.choice`
 #### 58. Subtract the mean of each row of a matrix (★★☆)
 `hint: mean(axis=,keepdims=)`
 #### 59. How to sort an array by the nth column? (★★☆)
@@ -229,7 +231,7 @@ np.sqrt(-1) == np.emath.sqrt(-1)
 #### 90. Given an arbitrary number of vectors, build the cartesian product (every combination of every item) (★★★)
 `hint: np.indices`
 #### 91. How to create a record array from a regular array? (★★★)
-`hint: np.core.records.fromarrays`
+`hint: np.rec.fromarrays`
 #### 92. Consider a large vector Z, compute Z to the power of 3 using 3 different methods (★★★)
 `hint: np.power, *, np.einsum`
 #### 93. Consider two arrays A and B of shape (8,3) and (2,2). How to find rows of A that contain at least one element of each row of B regardless of the order of the elements in B?

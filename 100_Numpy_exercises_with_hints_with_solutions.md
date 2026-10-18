@@ -7,6 +7,8 @@ This is a collection of exercises that have been collected in the numpy mailing 
 and in the numpy documentation. The goal of this collection is to offer a quick reference for both old
 and new users but also to provide a set of exercises for those who teach.
 
+Answers assume `import numpy as np` and `rng = np.random.default_rng()`.
+
 
 If you find an error or think you've a better way to solve some of them, feel
 free to open an issue at <https://github.com/rougier/numpy-100>.
@@ -93,17 +95,17 @@ Z = np.eye(3)
 print(Z)
 ```
 #### 12. Create a 3x3x3 array with random values (★☆☆)
-`hint: np.random.random`
+`hint: rng.random`
 
 ```python
-Z = np.random.random((3,3,3))
+Z = rng.random((3,3,3))
 print(Z)
 ```
 #### 13. Create a 10x10 array with random values and find the minimum and maximum values (★☆☆)
 `hint: min, max`
 
 ```python
-Z = np.random.random((10,10))
+Z = rng.random((10,10))
 Zmin, Zmax = Z.min(), Z.max()
 print(Zmin, Zmax)
 ```
@@ -111,7 +113,7 @@ print(Zmin, Zmax)
 `hint: mean`
 
 ```python
-Z = np.random.random(30)
+Z = rng.random(30)
 m = Z.mean()
 print(m)
 ```
@@ -188,7 +190,7 @@ print(Z)
 `hint: (x -mean)/std`
 
 ```python
-Z = np.random.random((5,5))
+Z = rng.random((5,5))
 Z = (Z - np.mean (Z)) / (np.std (Z))
 print(Z)
 ```
@@ -277,7 +279,7 @@ print(np.array([np.nan]).astype(int).astype(float))
 ```python
 # Author: Charles R Harris
 
-Z = np.random.uniform(-10,+10,10)
+Z = rng.uniform(-10,+10,10)
 print(np.copysign(np.ceil(np.abs(Z)), Z))
 
 # More readable but less efficient
@@ -287,8 +289,8 @@ print(np.where(Z>0, np.ceil(Z), np.floor(Z)))
 `hint: np.intersect1d`
 
 ```python
-Z1 = np.random.randint(0,10,10)
-Z2 = np.random.randint(0,10,10)
+Z1 = rng.integers(0,10,10)
+Z2 = rng.integers(0,10,10)
 print(np.intersect1d(Z1,Z2))
 ```
 #### 31. How to ignore all numpy warnings (not recommended)? (★☆☆)
@@ -319,9 +321,9 @@ np.sqrt(-1) == np.emath.sqrt(-1)
 `hint: np.datetime64, np.timedelta64`
 
 ```python
-yesterday = np.datetime64('today') - np.timedelta64(1)
+yesterday = np.datetime64('today') - np.timedelta64(1, 'D')
 today     = np.datetime64('today')
-tomorrow  = np.datetime64('today') + np.timedelta64(1)
+tomorrow  = np.datetime64('today') + np.timedelta64(1, 'D')
 ```
 #### 34. How to get all the dates corresponding to the month of July 2016? (★★☆)
 `hint: np.arange(dtype=datetime64['D'])`
@@ -345,7 +347,7 @@ np.multiply(A,B,out=A)
 `hint: %, np.floor, astype, np.trunc`
 
 ```python
-Z = np.random.uniform(0,10,10)
+Z = rng.uniform(0,10,10)
 
 print(Z - Z%1)
 print(Z // 1)
@@ -386,7 +388,7 @@ print(Z)
 `hint: sort`
 
 ```python
-Z = np.random.random(10)
+Z = rng.random(10)
 Z.sort()
 print(Z)
 ```
@@ -403,8 +405,8 @@ np.add.reduce(Z)
 `hint: np.allclose, np.array_equal`
 
 ```python
-A = np.random.randint(0,2,5)
-B = np.random.randint(0,2,5)
+A = rng.integers(0,2,5)
+B = rng.integers(0,2,5)
 
 # Assuming identical shape of the arrays and a tolerance for the comparison of values
 equal = np.allclose(A,B)
@@ -426,7 +428,7 @@ Z[0] = 1
 `hint: np.sqrt, np.arctan2`
 
 ```python
-Z = np.random.random((10,2))
+Z = rng.random((10,2))
 X,Y = Z[:,0], Z[:,1]
 R = np.sqrt(X**2+Y**2)
 T = np.arctan2(Y,X)
@@ -437,7 +439,7 @@ print(T)
 `hint: argmax`
 
 ```python
-Z = np.random.random(10)
+Z = rng.random(10)
 Z[Z.argmax()] = 0
 print(Z)
 ```
@@ -486,7 +488,7 @@ print(Z)
 
 ```python
 Z = np.arange(100)
-v = np.random.uniform(0,100)
+v = rng.uniform(0,100)
 index = (np.abs(Z-v)).argmin()
 print(Z[index])
 ```
@@ -505,7 +507,7 @@ print(Z)
 `hint: np.atleast_2d, T, np.sqrt`
 
 ```python
-Z = np.random.random((10,2))
+Z = rng.random((10,2))
 X,Y = np.atleast_2d(Z[:,0], Z[:,1])
 D = np.sqrt( (X-X.T)**2 + (Y-Y.T)**2)
 print(D)
@@ -515,7 +517,7 @@ import scipy
 # Thanks Gavin Heverly-Coulson (#issue 1)
 import scipy.spatial
 
-Z = np.random.random((10,2))
+Z = rng.random((10,2))
 D = scipy.spatial.distance.cdist(Z,Z)
 print(D)
 ```
@@ -525,7 +527,7 @@ print(D)
 ```python
 # Thanks Vikas (https://stackoverflow.com/a/10622758/5989906)
 # & unutbu (https://stackoverflow.com/a/4396247/5989906)
-Z = (np.random.rand(10)*100).astype(np.float32)
+Z = (rng.random(10)*100).astype(np.float32)
 Y = Z.view(np.int32)
 Y[:] = Z
 print(Y)
@@ -580,7 +582,7 @@ G = gy[:, None] * gx[None, :]
 print(G)
 ```
 #### 57. How to randomly place p elements in a 2D array? (★★☆)
-`hint: np.put, np.random.choice`
+`hint: np.put, rng.choice`
 
 ```python
 # Author: Divakar
@@ -588,7 +590,7 @@ print(G)
 n = 10
 p = 3
 Z = np.zeros((n,n))
-np.put(Z, np.random.choice(range(n*n), p, replace=False),1)
+np.put(Z, rng.choice(range(n*n), p, replace=False),1)
 print(Z)
 ```
 #### 58. Subtract the mean of each row of a matrix (★★☆)
@@ -597,7 +599,7 @@ print(Z)
 ```python
 # Author: Warren Weckesser
 
-X = np.random.rand(5, 10)
+X = rng.random((5, 10))
 
 # Recent versions of numpy
 Y = X - X.mean(axis=1, keepdims=True)
@@ -613,7 +615,7 @@ print(Y)
 ```python
 # Author: Steve Tjoa
 
-Z = np.random.randint(0,10,(3,3))
+Z = rng.integers(0,10,(3,3))
 print(Z)
 print(Z[Z[:,1].argsort()])
 ```
@@ -624,7 +626,7 @@ print(Z[Z[:,1].argsort()])
 # Author: Warren Weckesser
 
 # null : 0 
-Z = np.random.randint(0,3,(3,10))
+Z = rng.integers(0,3,(3,10))
 print((~Z.any(axis=0)).any())
 
 # null : np.nan
@@ -639,7 +641,7 @@ print(np.isnan(Z).all(axis=0))
 `hint: np.abs, argmin, flat`
 
 ```python
-Z = np.random.uniform(0,1,10)
+Z = rng.uniform(0,1,10)
 z = 0.5
 m = Z.flat[np.abs(Z - z).argmin()]
 print(m)
@@ -677,7 +679,7 @@ print (Z.name)
 # Author: Brett Olsen
 
 Z = np.ones(10)
-I = np.random.randint(0,len(Z),20)
+I = rng.integers(0,len(Z),20)
 Z += np.bincount(I, minlength=len(Z))
 print(Z)
 
@@ -704,7 +706,7 @@ print(F)
 # Author: Fisher Wang
 
 w, h = 256, 256
-I = np.random.randint(0, 4, (h, w, 3)).astype(np.ubyte)
+I = rng.integers(0, 4, (h, w, 3)).astype(np.ubyte)
 colors = np.unique(I.reshape(-1, 3), axis=0)
 n = len(colors)
 print(n)
@@ -714,7 +716,7 @@ print(n)
 # https://stackoverflow.com/a/59671950/2836621
 
 w, h = 256, 256
-I = np.random.randint(0,4,(h,w,3), dtype=np.uint8)
+I = rng.integers(0,4,(h,w,3), dtype=np.uint8)
 
 # View each pixel as a single 24-bit integer, rather than three 8-bit bytes
 I24 = np.dot(I.astype(np.uint32),[1,256,65536])
@@ -727,7 +729,7 @@ print(n)
 `hint: sum(axis=(-2,-1))`
 
 ```python
-A = np.random.randint(0,10,(3,4,3,4))
+A = rng.integers(0,10,(3,4,3,4))
 # solution by passing a tuple of axes (introduced in numpy 1.7.0)
 sum = A.sum(axis=(-2,-1))
 print(sum)
@@ -742,8 +744,8 @@ print(sum)
 ```python
 # Author: Jaime Fernández del Río
 
-D = np.random.uniform(0,1,100)
-S = np.random.randint(0,10,100)
+D = rng.uniform(0,1,100)
+S = rng.integers(0,10,100)
 D_sums = np.bincount(S, weights=D)
 D_counts = np.bincount(S)
 D_means = D_sums / D_counts
@@ -759,8 +761,8 @@ print(pd.Series(D).groupby(S).mean())
 ```python
 # Author: Mathieu Blondel
 
-A = np.random.uniform(0,1,(5,5))
-B = np.random.uniform(0,1,(5,5))
+A = rng.uniform(0,1,(5,5))
+B = rng.uniform(0,1,(5,5))
 
 # Slow version
 np.diag(np.dot(A, B))
@@ -807,7 +809,7 @@ print(A)
 ```python
 # Author: Nicolas P. Rougier
 
-faces = np.random.randint(0,100,(10,3))
+faces = rng.integers(0,100,(10,3))
 F = np.roll(faces.repeat(2,axis=1),-1,axis=1)
 F = F.reshape(len(F)*3,2)
 F = np.sort(F,axis=1)
@@ -862,6 +864,8 @@ print(Z)
 
 # Author: Jeff Luo (@Jeff1999)
 
+from numpy.lib.stride_tricks import sliding_window_view
+
 Z = np.arange(10)
 print(sliding_window_view(Z, window_shape=3))
 ```
@@ -871,19 +875,19 @@ print(sliding_window_view(Z, window_shape=3))
 ```python
 # Author: Nathaniel J. Smith
 
-Z = np.random.randint(0,2,100)
+Z = rng.integers(0,2,100)
 np.logical_not(Z, out=Z)
 
-Z = np.random.uniform(-1.0,1.0,100)
+Z = rng.uniform(-1.0,1.0,100)
 np.negative(Z, out=Z)
 ```
 #### 78. Consider 2 sets of points P0,P1 describing lines (2d) and a point p, how to compute distance from p to each line i (P0[i],P1[i])? (★★★)
 `No hints provided...`
 
 ```python
-P0 = np.random.uniform(-10,10,(10,2))
-P1 = np.random.uniform(-10,10,(10,2))
-p  = np.random.uniform(-10,10,( 1,2))
+P0 = rng.uniform(-10,10,(10,2))
+P1 = rng.uniform(-10,10,(10,2))
+p  = rng.uniform(-10,10,( 1,2))
 
 def distance_faster(P0,P1,p):
     #Author: Hemanth Pasupuleti
@@ -918,9 +922,9 @@ print(distance_slower(P0, P1, p))
 # Author: Italmassov Kuanysh
 
 # based on distance function from previous question
-P0 = np.random.uniform(-10, 10, (10,2))
-P1 = np.random.uniform(-10,10,(10,2))
-p = np.random.uniform(-10, 10, (10,2))
+P0 = rng.uniform(-10, 10, (10,2))
+P1 = rng.uniform(-10,10,(10,2))
+p = rng.uniform(-10, 10, (10,2))
 print(np.array([distance(P0,P1,p_i) for p_i in p]))
 
 # Author: Yang Wu (Broadcasting)
@@ -955,7 +959,7 @@ distance_points_to_lines(p, P0, P1)
 ```python
 # Author: Nicolas Rougier
 
-Z = np.random.randint(0,10,(10,10))
+Z = rng.integers(0,10,(10,10))
 shape = (5,5)
 fill  = 0
 position = (1,1)
@@ -986,12 +990,15 @@ print(R)
 
 ```python
 # Author: Stefan van der Walt
+from numpy.lib import stride_tricks
 
 Z = np.arange(1,15,dtype=np.uint32)
 R = stride_tricks.as_strided(Z,(11,4),(4,4))
 print(R)
 
 # Author: Jeff Luo (@Jeff1999)
+
+from numpy.lib.stride_tricks import sliding_window_view
 
 Z = np.arange(1, 15, dtype=np.uint32)
 print(sliding_window_view(Z, window_shape=4))
@@ -1002,7 +1009,7 @@ print(sliding_window_view(Z, window_shape=4))
 ```python
 # Author: Stefan van der Walt
 
-Z = np.random.uniform(0,1,(10,10))
+Z = rng.uniform(0,1,(10,10))
 U, S, V = np.linalg.svd(Z) # Singular Value Decomposition
 threshold = len(S) * S.max() * np.finfo(S.dtype).eps
 rank = np.sum(S > threshold)
@@ -1018,7 +1025,7 @@ print(rank)
 `hint: np.bincount, argmax`
 
 ```python
-Z = np.random.randint(0,10,50)
+Z = rng.integers(0,10,50)
 print(np.bincount(Z).argmax())
 ```
 #### 84. Extract all the contiguous 3x3 blocks from a random 10x10 matrix (★★★)
@@ -1026,8 +1033,9 @@ print(np.bincount(Z).argmax())
 
 ```python
 # Author: Chris Barker
+from numpy.lib import stride_tricks
 
-Z = np.random.randint(0,5,(10,10))
+Z = rng.integers(0,5,(10,10))
 n = 3
 i = 1 + (Z.shape[0]-3)
 j = 1 + (Z.shape[1]-3)
@@ -1036,7 +1044,9 @@ print(C)
 
 # Author: Jeff Luo (@Jeff1999)
 
-Z = np.random.randint(0,5,(10,10))
+from numpy.lib.stride_tricks import sliding_window_view
+
+Z = rng.integers(0,5,(10,10))
 print(sliding_window_view(Z, window_shape=(3, 3)))
 ```
 #### 85. Create a 2D array subclass such that Z[i,j] == Z[j,i] (★★★)
@@ -1055,7 +1065,7 @@ class Symetric(np.ndarray):
 def symetric(Z):
     return np.asarray(Z + Z.T - np.diag(Z.diagonal())).view(Symetric)
 
-S = symetric(np.random.randint(0,10,(5,5)))
+S = symetric(rng.integers(0,10,(5,5)))
 S[2,3] = 42
 print(S)
 ```
@@ -1120,7 +1130,7 @@ def iterate(Z):
     Z[1:-1,1:-1][birth | survive] = 1
     return Z
 
-Z = np.random.randint(0,2,(50,50))
+Z = rng.integers(0,2,(50,50))
 for i in range(100): Z = iterate(Z)
 print(Z)
 ```
@@ -1129,7 +1139,7 @@ print(Z)
 
 ```python
 Z = np.arange(10000)
-np.random.shuffle(Z)
+rng.shuffle(Z)
 n = 5
 
 # Slow
@@ -1159,14 +1169,14 @@ def cartesian(arrays):
 print (cartesian(([1, 2, 3], [4, 5], [6, 7])))
 ```
 #### 91. How to create a record array from a regular array? (★★★)
-`hint: np.core.records.fromarrays`
+`hint: np.rec.fromarrays`
 
 ```python
 Z = np.array([("Hello", 2.5, 3),
               ("World", 3.6, 2)])
-R = np.core.records.fromarrays(Z.T,
-                               names='col1, col2, col3',
-                               formats = 'S8, f8, i8')
+R = np.rec.fromarrays(Z.T,
+                      names='col1, col2, col3',
+                      formats = 'S8, f8, i8')
 print(R)
 ```
 #### 92. Consider a large vector Z, compute Z to the power of 3 using 3 different methods (★★★)
@@ -1175,7 +1185,7 @@ print(R)
 ```python
 # Author: Ryan G.
 
-x = np.random.rand(int(5e7))
+x = rng.random(int(5e7))
 
 %timeit np.power(x,3)
 %timeit x*x*x
@@ -1187,8 +1197,8 @@ x = np.random.rand(int(5e7))
 ```python
 # Author: Gabe Schwartz
 
-A = np.random.randint(0,5,(8,3))
-B = np.random.randint(0,5,(2,2))
+A = rng.integers(0,5,(8,3))
+B = rng.integers(0,5,(2,2))
 
 C = (A[..., np.newaxis, np.newaxis] == B)
 rows = np.where(C.any((3,1)).all(1))[0]
@@ -1200,7 +1210,7 @@ print(rows)
 ```python
 # Author: Robert Kern
 
-Z = np.random.randint(0,5,(10,3))
+Z = rng.integers(0,5,(10,3))
 print(Z)
 # solution for arrays of all dtypes (including string arrays and record arrays)
 E = np.all(Z[:,1:] == Z[:,:-1], axis=1)
@@ -1231,7 +1241,7 @@ print(np.unpackbits(I[:, np.newaxis], axis=1))
 ```python
 # Author: Jaime Fernández del Río
 
-Z = np.random.randint(0,2,(6,3))
+Z = rng.integers(0,2,(6,3))
 T = np.ascontiguousarray(Z).view(np.dtype((np.void, Z.dtype.itemsize * Z.shape[1])))
 _, idx = np.unique(T, return_index=True)
 uZ = Z[idx]
@@ -1249,8 +1259,8 @@ print(uZ)
 # Author: Alex Riley
 # Make sure to read: http://ajcr.net/Basic-guide-to-einsum/
 
-A = np.random.uniform(0,1,10)
-B = np.random.uniform(0,1,10)
+A = rng.uniform(0,1,10)
+B = rng.uniform(0,1,10)
 
 np.einsum('i->', A)       # np.sum(A)
 np.einsum('i,i->i', A, B) # A * B
@@ -1295,9 +1305,9 @@ print(X[M])
 ```python
 # Author: Jessica B. Hamrick
 
-X = np.random.randn(100) # random 1D array
+X = rng.standard_normal(100) # random 1D array
 N = 1000 # number of bootstrap samples
-idx = np.random.randint(0, X.size, (N, X.size))
+idx = rng.integers(0, X.size, (N, X.size))
 means = X[idx].mean(axis=1)
 confint = np.percentile(means, [2.5, 97.5])
 print(confint)

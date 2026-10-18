@@ -9,7 +9,7 @@ on:
 
 jobs:
   generate_files:
-    runs-on: ubuntu-22.04 # Python 3.7 is not supported on latest Ubuntu
+    runs-on: ubuntu-latest
 
     permissions:
       contents: write
@@ -18,17 +18,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.7'
-          cache: 'pip'
-
-      - name: Install dependencies
-        run: pip3 install -r requirements.txt
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v6
 
       - name: Generate solutions files
-        run: python3 generators.py
+        run: uv run --no-dev generators.py
 
       - name: Set environment variables
         run: echo "SHA_SHORT=$(git rev-parse --short $GITHUB_SHA)" >> $GITHUB_ENV

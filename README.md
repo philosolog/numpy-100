@@ -8,8 +8,18 @@ This is a collection of numpy exercises from numpy mailing list, stack overflow,
 → [Read them on GitHub](100_Numpy_exercises.md)  
 
 Note: markdown and ipython notebook are created programmatically from the source data in `source/exercises.ktx`.
-To modify the content of these files, please change the text in the source and run the `generators.py` module with a python
-interpreter with the libraries under `requirements.txt` installed.
+To modify the content of these files, please change the text in the source and run `uv run generators.py`.
+
+### Practice locally
+
+With [uv](https://docs.astral.sh/uv/) installed:
+
+```sh
+uv run jupyter lab 100_Numpy_exercises.ipynb
+```
+
+This creates the environment on first run (Python 3.14, NumPy 2.x, JupyterLab) and opens the exercises notebook.
+Inside the notebook, `hint(n)` and `answer(n)` print the hint and solution for exercise `n`.
 
 The keyed text format (`ktx`) is a minimal human readable key-values to store text (markdown or others) indexed by keys. 
 

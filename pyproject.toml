@@ -1,0 +1,15 @@
+[project]
+name = "numpy-100"
+version = "0.1.0"
+description = "100 numpy exercises"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.14"
+dependencies = [
+    "mdutils",
+    "nbformat",
+    "numpy>=2.3",
+]
+
+[dependency-groups]
+dev = ["jupyterlab", "pandas", "scipy"]
